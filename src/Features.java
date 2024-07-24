@@ -39,7 +39,7 @@ public class Features {
         while (true) {
             Search search = new Search();
             System.out.println();
-            System.out.println(" enter choice:\n1.print Amud\n2.search for words\n3.create library of talmud on your computer\n4.print amud from library" +
+            System.out.println("enter choice:\n1.print Amud\n2.search for words\n3.create library of talmud on your computer\n4.print amud from library" +
                     "\n5.print dafim of perek\n6.print mishnayot of perek\n7.exit ");
             String choice = scanner.next();
             switch (choice) {
