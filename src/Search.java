@@ -1,3 +1,6 @@
+import Database.DafIndex;
+import Database.Manager;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,17 +9,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Search {
-    static int LOCATION_COUNTER = 0;
-     private boolean isValidText(String line) {
-        if (line.isEmpty())return false;
+
+    private boolean isValidText(String line) {
+        if (line.isEmpty()) return false;
         if (line.startsWith("מסכת ")) return false;
         if ((line.startsWith("פרק ") && line.length() < 40)) return false;
-        if (line.startsWith("דף ") && line.length() <15) return false;
+        if (line.startsWith("דף ") && line.length() < 15) return false;
         return true;
     }
-    private boolean containsWord (String line,String text){
-       if (line.contains(" " +text+" ")||line.startsWith(text+" ")||line.endsWith(" "+ text)) return true;
-       return false;
+
+    private boolean containsWord(String line, String text) {
+        if (line.contains(" " + text + " ") || line.startsWith(text + " ") || line.endsWith(" " + text)) return true;
+        return false;
     }
 
 
@@ -63,8 +67,7 @@ public class Search {
             if (line.startsWith("דף") && line.length() < 15) {
                 currentDaf = line;
             }
-            if (isValidText(line) && containsWord(line,text)) {
-                LOCATION_COUNTER++;
+            if (isValidText(line) && containsWord(line, text)) {
                 Location loc = new Location(currentMasechet, currentDaf);
                 locations.add(loc);
             }
@@ -74,13 +77,22 @@ public class Search {
         return locations;
     }
 
-      public static void main(String[] args) throws IOException {
+    public String displayLocation(Location location, String search) throws IOException {
+        String mas = location.getMasechet().substring(5);
+        int index = Manager.searchForMasechet(mas);
+        DafIndex daf = Manager.searchForDaf(index, location.getDaf().substring(3));
+        String content = daf.getContent();
+
+        return content;
+    }
+
+    public static void main(String[] args) throws IOException {
         Search test = new Search();
 //        Scanner scanner= new Scanner(System.in);
 //        String input = scanner.nextLine();
-        List<Location> list=test.findLocationsInFile("גמ'");
+        List<Location> list = test.findLocationsInFile("גמ'");
 
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             System.out.println(" words not found in text");
         }
         for (Object o : list) {

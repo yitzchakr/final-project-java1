@@ -65,11 +65,25 @@ public class Features {
 
                     if (list.isEmpty()) {
                         System.out.println(" words not found in text");
+                        break;
                     }
+                    int counter = 0;
                     for (Object o : list) {
-                        System.out.println(o);
+                        System.out.println(o + " ." + ++counter);
                     }
-                    System.out.println("frequency:" + Search.LOCATION_COUNTER);
+                    System.out.println("\nFrequency:" + counter);
+                    System.out.println(" would you like to view daf?  1.yes  2. no ");
+                    String decision=scanner.next();
+                    if (!decision.equals("1")){
+                        break;
+                    }
+                    System.out.println("enter number  from list");
+                    int number = scanner.nextInt();
+                    String amud = search.displayLocation(list.get(number-1),input);
+                    String red = "\033[31m";
+                    String reset = "\033[0m";
+                    int change = amud.indexOf(input);
+                    System.out.println(amud.substring(0,change)+red+input+reset+amud.substring(change+input.length()));
                     break;
                 case "3":
                     File file = new File("./pages");

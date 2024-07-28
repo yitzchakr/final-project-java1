@@ -23,7 +23,7 @@ public class Manager {
         if (line.startsWith("דף ") && line.length() <15) return false;
         return true;
     }
-    static  int searchForMasechet (String name){
+    public static  int searchForMasechet (String name){
         int s=0;
         int e = masechtot.size()-1;
         while (s<=e){
@@ -37,7 +37,7 @@ public class Manager {
         }
         return -1;
     }
-    static DafIndex searchForDaf (int index, String number){
+    public static DafIndex searchForDaf (int index, String number){
         if (index<0){
             System.out.println("masechet not found");
             return null;
