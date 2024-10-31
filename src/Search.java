@@ -81,9 +81,9 @@ public class Search {
         String mas = location.getMasechet().substring(5);
         int index = Manager.searchForMasechet(mas);
         DafIndex daf = Manager.searchForDaf(index, location.getDaf().substring(3));
-        String content = daf.getContent();
 
-        return content;
+        assert daf != null;
+        return daf.getContent();
     }
 
     public static void main(String[] args) throws IOException {
